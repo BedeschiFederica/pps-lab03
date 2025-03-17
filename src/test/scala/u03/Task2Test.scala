@@ -11,10 +11,13 @@ class Task2Test:
   import Sequence.*
   import Task2.*
 
-  val sequence: Sequence[Person] = Cons(Student("mario", 2020), Cons(Teacher("luigi", "Programming"),
+  val personSequence: Sequence[Person] = Cons(Student("mario", 2020), Cons(Teacher("luigi", "Programming"),
     Cons(Student("maria", 2021), Cons(Teacher("laura", "Statistics"), Nil()))))
+  val intSequence: Sequence[Int] = Cons(3,Cons(7,Cons(1,Cons(5, Nil()))))
 
   @Test def testGetTeacherCourses(): Unit =
-    assertEquals(Cons("Programming", Cons("Statistics", Nil())), getTeacherCourses(sequence))
+    assertEquals(Cons("Programming", Cons("Statistics", Nil())), getTeacherCourses(personSequence))
 
+  @Test def testFoldLeft(): Unit =
+    assertEquals(-16, foldLeft(intSequence)(0)(_ - _))
 
