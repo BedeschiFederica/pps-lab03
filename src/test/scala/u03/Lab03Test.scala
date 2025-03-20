@@ -121,7 +121,8 @@ class Task3Test:
   import u03.Task3.*
 
   val stream: Stream[Int] = cons(0, cons(2, cons(3, cons(7, empty()))))
+  val pred: Int => Boolean  = _ < 5
   val resultStream: Stream[Int] = cons(0, cons(2, cons(3, empty())))
 
   @Test def testTakeWhile(): Unit =
-    assertEquals(toList(resultStream), toList(takeWhile(stream)(_ < 5)))
+    assertEquals(toList(resultStream), toList(takeWhile(stream)(pred)))
