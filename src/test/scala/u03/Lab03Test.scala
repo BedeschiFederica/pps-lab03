@@ -130,3 +130,7 @@ class Task3Test:
   @Test def testFill(): Unit =
     val resultStream: Stream[String] = cons("a", cons("a", cons("a", empty())))
     assertEquals(toList(resultStream), toList(fill(3)("a")))
+
+  @Test def testFibonacci(): Unit =
+    val resultStream: Stream[Int] = cons(0, cons(1, cons(1, cons (2, cons(3, empty())))))
+    assertEquals(toList(resultStream), toList(take(fibonacci())(5)))
