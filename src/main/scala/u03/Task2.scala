@@ -1,5 +1,7 @@
 package u03
 
+import scala.annotation.tailrec
+
 object Task2 extends App:
 
   import u02.Modules.*
@@ -16,7 +18,11 @@ object Task2 extends App:
     flatMap(s)(_ match {case Teacher(_, c) => Cons(c, Nil()); case _ => Nil()})
 
   def foldLeft[A, B](s: Sequence[A])(default: B)(accFun: (B, A) => B): B =
+    @tailrec
     def foldL[A, B](s: Sequence[A])(accFun: (B, A) => B)(acc: B): B = s match
       case Cons(h, t) => foldL(t)(accFun)(accFun(acc, h))
       case _ => acc
     foldL(s)(accFun)(default)
+
+  def getNumberOfCourses(s: Sequence[Person]): Int =
+    foldLeft(map(filter(s)(_ match {case Teacher(_, _) => true; case _ => false}))(_ => 1))(0)(_ + _)
