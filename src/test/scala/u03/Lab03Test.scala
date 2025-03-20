@@ -120,9 +120,13 @@ class Task3Test:
   import Stream.*
   import u03.Task3.*
 
-  val stream: Stream[Int] = cons(0, cons(2, cons(3, cons(7, empty()))))
-  val pred: Int => Boolean  = _ < 5
-  val resultStream: Stream[Int] = cons(0, cons(2, cons(3, empty())))
+  val intStream: Stream[Int] = cons(0, cons(2, cons(3, cons(7, empty()))))
 
   @Test def testTakeWhile(): Unit =
-    assertEquals(toList(resultStream), toList(takeWhile(stream)(pred)))
+    val pred: Int => Boolean  = _ < 5
+    val resultStream: Stream[Int] = cons(0, cons(2, cons(3, empty())))
+    assertEquals(toList(resultStream), toList(takeWhile(intStream)(pred)))
+
+  @Test def testFill(): Unit =
+    val resultStream: Stream[String] = cons("a", cons("a", cons("a", empty())))
+    assertEquals(toList(resultStream), toList(fill(3)("a")))
