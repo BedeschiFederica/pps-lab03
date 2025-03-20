@@ -113,3 +113,15 @@ class Task2Test:
     assertEquals(2, getNumberOfCourses(personSequence))
 
 end Task2Test
+
+
+class Task3Test:
+  import u03.Streams.*
+  import Stream.*
+  import u03.Task3.*
+
+  val stream: Stream[Int] = cons(0, cons(2, cons(3, cons(7, empty()))))
+  val resultStream: Stream[Int] = cons(0, cons(2, cons(3, empty())))
+
+  @Test def testTakeWhile(): Unit =
+    assertEquals(toList(resultStream), toList(takeWhile(stream)(_ < 5)))

@@ -90,3 +90,14 @@ object Task2:
 end Task2
 
 
+object Task3:
+  import Streams.*
+  import Stream.*
+
+  def takeWhile[A](s: Stream[A])(pred: A => Boolean): Stream[A] = s match
+    case Cons(h, t) if pred(h()) => cons(h(), takeWhile(t())(pred))
+    case _ => Empty()
+
+  
+
+
