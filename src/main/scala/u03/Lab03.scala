@@ -162,5 +162,16 @@ object Task3:
     case (Empty(), _) => s2
     case _ => s1
 
+  import Sequences.*
+  import Sequence.*
+
+  def cycle[A](lst: Sequence[A]): Stream[A] =
+    /*def toStream[A](lst: Sequence[A]): Stream[A] = lst match
+      case Sequence.Cons(h, t) => cons(h, toStream(t))
+      case _ => Empty()*/
+    def _cycle[A](lst: Sequence[A], tail: Sequence[A]): Stream[A] = tail match
+      case Sequence.Cons(h, t) => cons(h, _cycle(lst, t))
+      case _ => _cycle(lst, lst)
+    _cycle(lst, lst)
 
 

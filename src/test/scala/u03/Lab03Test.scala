@@ -139,3 +139,11 @@ class Task3Test:
     val secondIntStream: Stream[Int] = cons(10, cons(11, empty()))
     val resultStream: Stream[Int] = cons(0, cons(10, cons(2, cons(11, cons(3, cons(7, empty()))))))
     assertEquals(toList(resultStream), toList(interleave(intStream, secondIntStream)))
+
+  import u03.Sequences.*
+  import Sequence.*
+
+  @Test def testCycle(): Unit =
+    val seq: Sequence[String] = Sequence.Cons("a", Sequence.Cons("b", Sequence.Cons("c", Nil())))
+    val resultStream: Stream[String] = cons("a", cons("b", cons("c", cons("a", cons("b", Empty())))))
+    assertEquals(toList(resultStream), toList(take(cycle(seq))(5)))
