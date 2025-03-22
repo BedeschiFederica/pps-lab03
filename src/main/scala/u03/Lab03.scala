@@ -98,10 +98,6 @@ object Task1:
    * E.g., [10, 20, 10, 30] => [10, 20, 30]
    * E.g., [10, 20, 30] => [10, 20, 30]
    */
-  /*def distinct[A](s: Sequence[A]): Sequence[A] = reverse(s) match
-    case Cons(h, t) if contains(t)(h) => distinct(reverse(t))
-    case Cons(h, t) => reverse(Cons(h, reverse(distinct(reverse(t)))))
-    case _ => Nil()*/
   def distinct[A](s: Sequence[A]): Sequence[A] =
     def _distinct[A](s: Sequence[A]): Sequence[A] = s match
       case Cons(h, t) if contains(t)(h) => reverse(distinct(t))
@@ -119,12 +115,7 @@ object Task2:
   import u02.Modules.*
   import Person.*
 
-  def getTeacherCourses(s: Sequence[Person]): Sequence[String] = //s match
-    /*case Cons(h, t) => h match
-      case Teacher(n, c) => concat(Cons(c, Nil()), getTeacherCourses(t))
-      case _ => getTeacherCourses(t)
-    case _ => Nil()*/
-    //map(filter(s)(_ match {case Teacher(_, _) => true; case _ => false}))(_ match {case Teacher(n, c) => c})
+  def getTeacherCourses(s: Sequence[Person]): Sequence[String] =
     flatMap(s)(_ match {case Teacher(_, c) => Cons(c, Nil()); case _ => Nil()})
 
   def foldLeft[A, B](s: Sequence[A])(default: B)(accFun: (B, A) => B): B =
@@ -166,12 +157,12 @@ object Task3:
   import Sequence.*
 
   def cycle[A](lst: Sequence[A]): Stream[A] =
-    /*def toStream[A](lst: Sequence[A]): Stream[A] = lst match
-      case Sequence.Cons(h, t) => cons(h, toStream(t))
-      case _ => Empty()*/
     def _cycle[A](lst: Sequence[A], tail: Sequence[A]): Stream[A] = tail match
       case Sequence.Cons(h, t) => cons(h, _cycle(lst, t))
       case _ => _cycle(lst, lst)
     _cycle(lst, lst)
+
+end Task3
+
 
 

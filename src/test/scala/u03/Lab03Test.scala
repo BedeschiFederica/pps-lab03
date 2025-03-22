@@ -3,8 +3,6 @@ package u03
 import org.junit.*
 import org.junit.Assert.*
 
-//import u03.extensionmethods.Sequences.*
-
 class Task1Test:
   import u03.extensionmethods.Optionals.*
   import Optional.*
@@ -147,3 +145,5 @@ class Task3Test:
     val seq: Sequence[String] = Sequence.Cons("a", Sequence.Cons("b", Sequence.Cons("c", Nil())))
     val resultStream: Stream[String] = cons("a", cons("b", cons("c", cons("a", cons("b", Empty())))))
     assertEquals(toList(resultStream), toList(take(cycle(seq))(5)))
+
+end Task3Test
