@@ -5,6 +5,8 @@ import scala.annotation.tailrec
 object Task1:
   import Sequences.*
   import Sequence.*
+  import u03.extensionmethods.Optionals.*
+  import Optional.*
 
   /*
    * Skip the first n elements of the sequence
@@ -48,7 +50,6 @@ object Task1:
     case Cons(h, t) => concat(reverse(t), Cons(h, Nil()))
     case _ => Nil()
 
-
   /*
    * Map the elements of the sequence to a new sequence and flatten the result
    * E.g., [10, 20, 30], calling with mapper(v => [v, v + 1]) returns [10, 11, 20, 21, 30, 31]
@@ -58,6 +59,55 @@ object Task1:
   def flatMap[A, B](s: Sequence[A])(mapper: A => Sequence[B]): Sequence[B] = s match
     case Cons(h, t) => concat(mapper(h), flatMap(t)(mapper))
     case _ => Nil()
+
+  /*
+   * Get the minimum element in the sequence
+   * E.g., [30, 20, 10] => 10
+   * E.g., [10, 1, 30] => 1
+   */
+  def min(s: Sequence[Int]): Optional[Int] =
+    @tailrec
+    def _min(s: Sequence[Int], min: Optional[Int]): Optional[Int] = (s, min) match
+      case (Cons(h, t), Just(v)) if h < v => _min(t, Just(h))
+      case (Cons(h, t), None()) => _min(t, Just(h))
+      case _ => min
+    _min(s, None())
+
+  /*
+   * Get the elements at even indices
+   * E.g., [10, 20, 30] => [10, 30]
+   * E.g., [10, 20, 30, 40] => [10, 30]
+   */
+  def evenIndices[A](s: Sequence[A]): Sequence[A] = s match
+    case Cons(h1, t1) => t1 match {case Cons(h2, t2) => Cons(h1, evenIndices(t2)); case _ => Cons(h1, Nil())}
+    case _ => Nil()
+
+  /*
+   * Check if the sequence contains the element
+   * E.g., [10, 20, 30] => true if elem is 20
+   * E.g., [10, 20, 30] => false if elem is 40
+   */
+  @tailrec
+  def contains[A](s: Sequence[A])(elem: A): Boolean = s match
+    case Cons(h, t) if h == elem => true
+    case Cons(h, t) => contains(t)(elem)
+    case _ => false
+
+  /*
+   * Remove duplicates from the sequence
+   * E.g., [10, 20, 10, 30] => [10, 20, 30]
+   * E.g., [10, 20, 30] => [10, 20, 30]
+   */
+  /*def distinct[A](s: Sequence[A]): Sequence[A] = reverse(s) match
+    case Cons(h, t) if contains(t)(h) => distinct(reverse(t))
+    case Cons(h, t) => reverse(Cons(h, reverse(distinct(reverse(t)))))
+    case _ => Nil()*/
+  def distinct[A](s: Sequence[A]): Sequence[A] =
+    def _distinct[A](s: Sequence[A]): Sequence[A] = s match
+      case Cons(h, t) if contains(t)(h) => reverse(distinct(t))
+      case Cons(h, t) => reverse(Cons(h, distinct(t)))
+      case _ => Nil()
+    _distinct(reverse(s))
 
 end Task1
 

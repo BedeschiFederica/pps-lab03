@@ -3,8 +3,6 @@ package u03
 import u03.Optionals.Optional
 import u03.Optionals.Optional.*
 
-import scala.annotation.tailrec
-
 object Sequences: // Essentially, generic linkedlists
 
   enum Sequence[E]:
@@ -25,36 +23,8 @@ object Sequences: // Essentially, generic linkedlists
       case Cons(h, t) if pred(h) => Cons(h, filter(t)(pred))
       case Cons(_, t) => filter(t)(pred)
       case Nil() => Nil()
-
+    
     // Lab 03
-
-    /*
-     * Get the minimum element in the sequence
-     * E.g., [30, 20, 10] => 10
-     * E.g., [10, 1, 30] => 1
-     */
-    def min(s: Sequence[Int]): Optional[Int] = ???
-
-    /*
-     * Get the elements at even indices
-     * E.g., [10, 20, 30] => [10, 30]
-     * E.g., [10, 20, 30, 40] => [10, 30]
-     */
-    def evenIndices[A](s: Sequence[A]): Sequence[A] = ???
-
-    /*
-     * Check if the sequence contains the element
-     * E.g., [10, 20, 30] => true if elem is 20
-     * E.g., [10, 20, 30] => false if elem is 40
-     */
-    def contains[A](s: Sequence[A])(elem: A): Boolean = ???
-
-    /*
-     * Remove duplicates from the sequence
-     * E.g., [10, 20, 10, 30] => [10, 20, 30]
-     * E.g., [10, 20, 30] => [10, 20, 30]
-     */
-    def distinct[A](s: Sequence[A]): Sequence[A] = ???
 
     /*
      * Group contiguous elements in the sequence
