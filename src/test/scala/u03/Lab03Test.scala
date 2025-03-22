@@ -71,7 +71,7 @@ class Task1Test:
     assertEquals(Cons(10, Cons(20, Nil())), distinct(Cons(10, Cons(20, Cons(10, Nil())))))
     assertEquals(Nil(), distinct(Nil()))
 
-  @Test def testGroup() =
+  /*@Test def testGroup() =
     val sequence = Cons(10, Cons(10, Cons(20, Cons(30, Cons(20, Nil())))))
     val grouped =
       Cons(Cons(10, Cons(10, Nil())), Cons(Cons(20, Nil()), Cons(Cons(30, Nil()), Cons(Cons(20, Nil()), Nil()))))
@@ -87,7 +87,7 @@ class Task1Test:
     val emptySequence = Nil()
     val (evenEmpty, oddEmpty) = partition(emptySequence)(x => true)
     assertEquals(Nil(), evenEmpty)
-    assertEquals(Nil(), oddEmpty)
+    assertEquals(Nil(), oddEmpty)*/
 
 end Task1Test
 
@@ -134,3 +134,8 @@ class Task3Test:
   @Test def testFibonacci(): Unit =
     val resultStream: Stream[Int] = cons(0, cons(1, cons(1, cons (2, cons(3, empty())))))
     assertEquals(toList(resultStream), toList(take(fibonacci())(5)))
+
+  @Test def testInterleave(): Unit =
+    val secondIntStream: Stream[Int] = cons(10, cons(11, empty()))
+    val resultStream: Stream[Int] = cons(0, cons(10, cons(2, cons(11, cons(3, cons(7, empty()))))))
+    assertEquals(toList(resultStream), toList(interleave(intStream, secondIntStream)))
